@@ -1,6 +1,7 @@
 import './style.css';
 import { setupScene } from './scene/setup.js';
 import { createRoom } from './scene/room.js';
+import { loadModels } from './scene/modelLoader.js';
 // import { setupInteraction } from './scene/interaction.js';
 import * as THREE from 'three';
 
@@ -9,7 +10,8 @@ const { scene, camera, renderer } = setupScene();
 
 // Room
 createRoom(scene);
-
+// Model
+loadModels(scene);
 
 
 // Interaction

@@ -4,8 +4,16 @@ import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment
 
 export function setupScene() {
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x87ceeb); // sky
+  scene.background = new THREE.Color(0x2b2b2b); 
 
+  const shadowCatcher = new THREE.Mesh(
+    new THREE.PlaneGeometry(100, 100),
+    new THREE.ShadowMaterial({ opacity: 0.5 })
+  );
+  shadowCatcher.rotation.x = -Math.PI / 2;
+  shadowCatcher.position.y = -2;
+  shadowCatcher.receiveShadow = true;
+  scene.add(shadowCatcher);
 
   const camera = new THREE.PerspectiveCamera(
     64,
@@ -26,7 +34,8 @@ export function setupScene() {
 
   // Light
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.VSShadowMap;
+  
 
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1;
@@ -39,6 +48,8 @@ export function setupScene() {
   dirLight.position.set(4, 9, 6);
   dirLight.castShadow = true;
   dirLight.shadow.mapSize.set(2048, 2048);
+  dirLight.shadow.radius = 8;
+  dirLight.shadow.blurSamples = 16;
   scene.add(dirLight);
   scene.add(new THREE.PointLightHelper(dirLight, 0.5));
 
