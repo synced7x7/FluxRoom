@@ -74,8 +74,8 @@ export function setupScene() {
   });
 
   const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.05;
+  // controls.enableDamping = true;
+  // controls.dampingFactor = 0.05;
 
   return { scene, camera, renderer, controls };
 }
