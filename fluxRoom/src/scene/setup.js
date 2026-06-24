@@ -10,7 +10,7 @@ export function setupScene() {
   // dpr optimization
   const dpr = Math.min(window.devicePixelRatio, 2);
 
-  scene.background = new THREE.Color(0x2b2b2b); 
+  scene.background = null; 
 
   const shadowCatcher = new THREE.Mesh(
     new THREE.PlaneGeometry(100, 100),
@@ -74,7 +74,7 @@ export function setupScene() {
   dirLight.shadow.radius = 8;
   dirLight.shadow.blurSamples = 16;
   scene.add(dirLight);
-  scene.add(new THREE.PointLightHelper(dirLight, 0.5));
+  // scene.add(new THREE.PointLightHelper(dirLight, 0.5));
 
   // Ambient
   scene.add(new THREE.AmbientLight(0xffffff, 0.3));
@@ -87,7 +87,7 @@ export function setupScene() {
   windowLight.castShadow = true;
   windowLight.shadow.mapSize.set(2048, 2048);
   scene.add(windowLight);
-  scene.add(new THREE.DirectionalLightHelper(windowLight, 1));
+  // scene.add(new THREE.DirectionalLightHelper(windowLight, 1));
 
   // Resize handling
   window.addEventListener("resize", () => {

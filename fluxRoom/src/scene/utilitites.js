@@ -15,7 +15,15 @@ let windowTargetIntensity = 1.1;
 let lampTargetIntensity = 0;
 let standingLampTargetIntensity = 0;
 
-export function toggleDayNight(dirLight, windowLight) {
+// background 
+let starsTargetOpacity = 0;
+
+// day sky targets
+let topColorTarget = new THREE.Color(0x87ceeb);
+let bottomColorTarget = new THREE.Color(0xb0e0ff);
+
+
+export function toggleDayNight(dirLight, windowLight, scene, stars, sky) {
     isDay = !isDay;
 
     if (isDay) {
@@ -27,6 +35,10 @@ export function toggleDayNight(dirLight, windowLight) {
         windowTargetIntensity = 1.1;
         lampTargetIntensity = 0;
         standingLampTargetIntensity = 0;
+        starsTargetOpacity = 0;
+        topColorTarget.set(0x0d0604);    // dark wall tone
+        bottomColorTarget.set(0x221201); // rust/burnt sienna from window
+        scene.fog = new THREE.Fog(0x87ceeb, 20, 60);
     } else {
         moonTargetY = 4.5;
         sunTargetY = -7;
@@ -36,10 +48,14 @@ export function toggleDayNight(dirLight, windowLight) {
         windowTargetIntensity = 0.3;
         lampTargetIntensity = 5;
         standingLampTargetIntensity = 16;
+        starsTargetOpacity = 1;
+        topColorTarget.set(0x020408);
+        bottomColorTarget.set(0x0a1535);
+        scene.fog = new THREE.Fog(0x0a0a1a, 20, 60);
     }
 }
 
-export function animateDayNight(dirLight, windowLight) {
+export function animateDayNight(dirLight, windowLight, scene, stars, sky) {
     if (!models.sun || !models.moon || !models.lampLight || !models.standingLampLight) return;
 
     // positions
@@ -61,5 +77,12 @@ export function animateDayNight(dirLight, windowLight) {
     // lamp light intensity lerp
     models.lampLight.intensity += (lampTargetIntensity - models.lampLight.intensity) * 0.04;
     models.standingLampLight.intensity += (standingLampTargetIntensity - models.standingLampLight.intensity) * 0.04;
+
+    // background color lerp
+
+    sky.material.uniforms.topColor.value.lerp(topColorTarget, 0.04);
+    sky.material.uniforms.bottomColor.value.lerp(bottomColorTarget, 0.04);
+    // stars opacity lerp
+    stars.material.opacity += (starsTargetOpacity - stars.material.opacity) * 0.04;
 }
 
