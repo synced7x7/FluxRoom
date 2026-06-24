@@ -56,10 +56,33 @@ export function createRoom(scene) {
     backWall.position.set(0, 2.5, -5);
     scene.add(backWall);
 
+    const wallShape = new THREE.Shape();
+
+    wallShape.moveTo(0, 0);
+    wallShape.lineTo(10, 0);
+    wallShape.lineTo(10, 5);
+    wallShape.lineTo(0, 5);
+    wallShape.lineTo(0, 0);
+
+    const windowHole = new THREE.Path();
+    windowHole.moveTo(3, 2);     // bottom-left
+    windowHole.lineTo(7, 2);     // bottom-right
+    windowHole.lineTo(7, 4);     // top-right
+    windowHole.lineTo(3, 4);     // top-left
+    windowHole.lineTo(3, 2);
+
+    wallShape.holes.push(windowHole);
+
+    const wallGeometry = new THREE.ShapeGeometry(wallShape);
+
     const leftWall = new THREE.Mesh(
-        new THREE.BoxGeometry(0.2, 5, 10),
+        wallGeometry,
         wallMaterial,
     );
-    leftWall.position.set(-5, 2.5, 0);
+    
+    leftWall.rotation.y = Math.PI / 2;
+
+    
+    leftWall.position.set(-5, 0, 5);
     scene.add(leftWall);
 }
