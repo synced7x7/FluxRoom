@@ -86,3 +86,4 @@ export function animateDayNight(dirLight, windowLight, scene, stars, sky) {
     stars.material.opacity += (starsTargetOpacity - stars.material.opacity) * 0.04;
 }
 
+

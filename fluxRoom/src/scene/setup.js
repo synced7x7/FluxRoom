@@ -59,7 +59,7 @@ export function setupScene() {
 
   // Renderer settings
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.VSMShadowMap; 
+  renderer.shadowMap.type = THREE.PCFShadowMap; 
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1;
   renderer.outputColorSpace = THREE.SRGBColorSpace;

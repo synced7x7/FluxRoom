@@ -12,6 +12,8 @@
     "vite": "^8.0.12"
   },
   "dependencies": {
+    "@theatre/core": "^0.7.2",
+    "@theatre/studio": "^0.7.2",
     "three": "^0.184.0"
   }
 }
